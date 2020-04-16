@@ -12,11 +12,10 @@ class SavedArticlesViewController: UIViewController {
   
     override func viewDidLoad() {
         super.viewDidLoad()
-      configTableView()
+
     }
     
   override func viewWillAppear(_ animated: Bool) {
-    loadDadaFromFileManager()
   }
 
   func configTableView() {
@@ -24,13 +23,6 @@ class SavedArticlesViewController: UIViewController {
     savedArticleTV.dataSource = self
   }
    
-  func loadDadaFromFileManager() {
-    do {
-      favorites = try ArticlePersistenceHelper.manager.getArticle()
-    } catch {
-      print(error)
-    }
-  }
 }
 
 extension SavedArticlesViewController: UITableViewDelegate, UITableViewDataSource {

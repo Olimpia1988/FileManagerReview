@@ -1,7 +1,18 @@
 import Foundation
 
 struct PersistenceHelper<T: Codable> {
-    func getObjects() throws -> [T] {
+  
+     private let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+  
+  private func filePathFromDocumentsDirectory(name: String) -> URL {
+         return documentsDirectory.appendingPathComponent(name)
+     }
+  
+  private var url: URL {
+    return filePathFromDocumentsDirectory(name: fileName)
+  }
+   
+  func getObjects() throws -> [T] {
         guard let data = FileManager.default.contents(atPath: url.path) else {
             return []
         }
@@ -15,19 +26,14 @@ struct PersistenceHelper<T: Codable> {
         try serializedData.write(to: url, options: Data.WritingOptions.atomic)
     }
     
-    init(fileName: String){
+    init(fileName: String) {
         self.fileName = fileName
     }
     
-    private let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+ 
     
-    private func filePathFromDocumentsDirectory(name: String) -> URL {
-        return documentsDirectory.appendingPathComponent(name)
-    }
+   
     
     private let fileName: String
     
-    private var url: URL {
-        return filePathFromDocumentsDirectory(name: fileName)
-    }
 }

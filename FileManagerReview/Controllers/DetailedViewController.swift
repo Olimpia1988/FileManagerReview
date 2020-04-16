@@ -18,28 +18,15 @@ class DetailedViewController: UIViewController {
   
   
   @IBAction func saveArticle(_ sender: Any) {
-    let currentArticle = Article(title: selectedArticle.title, images: nil, body: selectedArticle.body)
-    DispatchQueue.global(qos: .utility).async {
-      try? ArticlePersistenceHelper.manager.saveArticle(article: currentArticle)
-      DispatchQueue.main.async {
-        self.navigationController?.popViewController(animated: true)
-      }
-    }
+
   
   }
-  
-  
-  
-  
+
   //MARK: - Private Properties
   private func setupUIObjects() {
     UIUtilities.setupTitleText(selectedTitle, selectedArticle.title)
     UIUtilities.setupBodyText(selectedArticleBody, selectedArticle.body)
     UIUtilities.setupImage(selectedImage, articleImage)
   }
-  
-  
-  
-  
-  
+
 }
